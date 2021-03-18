@@ -1,0 +1,2 @@
+add_subdirectory(LoggerTest)
+add_subdirectory(VideoTest)
