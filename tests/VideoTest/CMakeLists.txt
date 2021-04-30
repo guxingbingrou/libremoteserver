@@ -34,24 +34,24 @@ set_target_properties(sdl_play PROPERTIES CLEAN_DIRECT_OUTPUT 1)
 target_link_libraries(sdl_play ${SDL2_LIBRARIES})	
 
 
-include_directories(${PROJECT_SOURCE_DIR}/include/live555/BasicUsageEnvironment
-	${PROJECT_SOURCE_DIR}/include/live555/groupsock
-	${PROJECT_SOURCE_DIR}/include/live555/liveMedia
-	${PROJECT_SOURCE_DIR}/include/live555/UsageEnvironment)
-add_executable(TestLive555 TestLive555.cpp  ${PROJECT_SOURCE_DIR}/src/Base/Logger/Logger.cpp)
-set_target_properties(TestLive555 PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
-set_target_properties(TestLive555 PROPERTIES CLEAN_DIRECT_OUTPUT 1)
-
-target_link_libraries(TestLive555 
-	VideoCapture
-	VideoEncoder
-	${PROJECT_SOURCE_DIR}/lib/Live555/libliveMedia.so
-	${PROJECT_SOURCE_DIR}/lib/Live555/libgroupsock.so
-	${PROJECT_SOURCE_DIR}/lib/Live555/libBasicUsageEnvironment.so
-	${PROJECT_SOURCE_DIR}/lib/Live555/libUsageEnvironment.so
-	-lssl -lcrypto
-	)	
-
+#include_directories(${PROJECT_SOURCE_DIR}/include/live555/BasicUsageEnvironment
+#	${PROJECT_SOURCE_DIR}/include/live555/groupsock
+#	${PROJECT_SOURCE_DIR}/include/live555/liveMedia
+#	${PROJECT_SOURCE_DIR}/include/live555/UsageEnvironment)
+#add_executable(TestLive555 TestLive555.cpp  ${PROJECT_SOURCE_DIR}/src/Base/Logger/Logger.cpp)
+#set_target_properties(TestLive555 PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
+#set_target_properties(TestLive555 PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+#
+#target_link_libraries(TestLive555 
+#	VideoCapture
+#	VideoEncoder
+#	${PROJECT_SOURCE_DIR}/lib/Live555/libliveMedia.so
+#	${PROJECT_SOURCE_DIR}/lib/Live555/libgroupsock.so
+#	${PROJECT_SOURCE_DIR}/lib/Live555/libBasicUsageEnvironment.so
+#	${PROJECT_SOURCE_DIR}/lib/Live555/libUsageEnvironment.so
+#	-lssl -lcrypto
+#	)	
+#
 
 include_directories(${PROJECT_SOURCE_DIR}/include/Razor)
 add_executable(sim_sender_test sim_sender_test.cpp)

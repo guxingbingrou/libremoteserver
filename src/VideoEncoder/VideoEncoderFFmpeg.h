@@ -46,7 +46,7 @@ private:
 	unsigned char* m_yuv_data = nullptr;
 	std::vector<unsigned char> m_input_buffer;
 
-	AVCodec* m_codec = nullptr;
+	const AVCodec* m_codec = nullptr;
 
 	AVCodecContext* m_code_context = nullptr;
 

@@ -62,9 +62,9 @@ int VideoEncoderFFmpeg::InitVideoEncoder(){
 //    }
 
     if(!m_yuv_data){
-        int yuv_size = avpicture_get_size(m_code_context->pix_fmt, m_frame->width, m_frame->height);
+        int yuv_size = av_image_get_buffer_size(m_code_context->pix_fmt, m_frame->width, m_frame->height, 1);
         m_yuv_data = (unsigned char*)av_malloc(yuv_size);
-        avpicture_fill((AVPicture*)m_frame, m_yuv_data,m_code_context->pix_fmt, m_frame->width, m_frame->height);
+        av_image_fill_arrays(m_frame->data, m_frame->linesize, m_yuv_data, AV_PIX_FMT_YUV420P, m_code_context->width, m_code_context->height, 1);
     }
 
     return 0;
@@ -143,7 +143,7 @@ int VideoEncoderFFmpeg::UpdateVideoEncoder(){
         m_frame->pts = m_frame_count++;
         int ret = -1;
 
-        av_init_packet(m_packet);
+        // av_init_packet(m_packet);
 
         if(m_force_i_frame){
         	m_frame->pict_type = AV_PICTURE_TYPE_I;

@@ -61,6 +61,8 @@ std::ostream& Logger::GetOstream(){
 			return std::cout;
 		case FileType:
 			return file_stream_;
+		defalut:
+			return std::cout;
 	}
 }
 Logger::Logger() {
