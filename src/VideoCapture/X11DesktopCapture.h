@@ -19,7 +19,7 @@ namespace RemoteServer {
 
 class X11DesktopCapture: public VideoCapture {
 public:
-	X11DesktopCapture(std::shared_ptr<BufferQueue<unsigned char>>& buffer_queue);
+	X11DesktopCapture(std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& buffer_queue);
 	virtual ~X11DesktopCapture();
 
 	void UpdateVideoCapture() final;

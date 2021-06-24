@@ -23,7 +23,7 @@ int main(int argc, char** argv){
 		exit(1);
 	}
 	std::ifstream file_stream;
-	std::string in_file = std::string(getenv("HOME")) + "/" + std::string(argv[1]);
+	std::string in_file = std::string(argv[1]);
 	SIMLOG(SimLogger::Debug, "file path: " << in_file );
 	file_stream.open(in_file, std::ios::binary);
     const int width = 1920;

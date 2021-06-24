@@ -10,9 +10,9 @@ int main(){
 	SimLogger::Logger::CreateLoggerInstance();
 	SimLogger::Logger::InitLogger(SimLogger::ConsoleType, "LoggerTest", SimLogger::Info);
 
-	std::ofstream file_stream("/home/zou/x11capture.rgb", std::ios::out | std::ios::binary);
+	std::ofstream file_stream("x11capture.rgb", std::ios::out | std::ios::binary);
 
-	auto buffer_queue = std::make_shared< BufferQueue<unsigned char> >(5);
+	auto buffer_queue = std::make_shared< BufferQueue::BufferQueue<unsigned char> >(5);
 
 	auto video_capture = VideoCapture::CreateVideoCapture(X11Desktop, buffer_queue);
 

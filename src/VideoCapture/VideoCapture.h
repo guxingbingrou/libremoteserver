@@ -39,7 +39,7 @@ struct VideoFormat{
 class VideoCapture {
 public:
 	virtual ~VideoCapture();
-	static std::shared_ptr<VideoCapture> CreateVideoCapture(VideoCaptureType type, std::shared_ptr<BufferQueue<unsigned char>>& buffer_queue);
+	static std::shared_ptr<VideoCapture> CreateVideoCapture(VideoCaptureType type, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& buffer_queue);
 
 	inline std::shared_ptr<VideoFormat> GetVideoFormat(){return m_video_format;}
 
@@ -57,7 +57,7 @@ protected:
 
 	bool m_start_capture = false;
 	std::thread m_process_thread;
-	std::shared_ptr<BufferQueue<unsigned char>> m_buffer_queue;
+	std::shared_ptr<BufferQueue::BufferQueue<unsigned char>> m_buffer_queue;
 
 private:
 	static std::mutex m_mutex;

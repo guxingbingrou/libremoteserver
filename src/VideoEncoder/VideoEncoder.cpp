@@ -10,7 +10,8 @@ std::shared_ptr<VideoEncoder> VideoEncoder::m_video_encoder;
 std::mutex VideoEncoder::m_mutex;
 
 std::shared_ptr<VideoEncoder> VideoEncoder::CreateVideoEncoder(VideoEncoderType encoder_type,
-		VideoEncoderParams& params, std::shared_ptr<BufferQueue<unsigned char>>& input_queue, std::shared_ptr<BufferQueue<unsigned char>>& output_queue){
+		VideoEncoderParams& params, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& input_queue,
+        std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& output_queue){
     if(!m_video_encoder){
         std::unique_lock<std::mutex> lck(m_mutex);
         if(!m_video_encoder){

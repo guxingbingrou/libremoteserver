@@ -15,7 +15,7 @@ VideoCapture::VideoCapture() {
 	// TODO Auto-generated constructor stub
 	m_video_format = std::make_shared<VideoFormat>();
 }
-std::shared_ptr<VideoCapture> VideoCapture::CreateVideoCapture(VideoCaptureType type, std::shared_ptr<BufferQueue<unsigned char>>& buffer_queue){
+std::shared_ptr<VideoCapture> VideoCapture::CreateVideoCapture(VideoCaptureType type, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& buffer_queue){
 	if(!m_video_capture){
 		std::unique_lock<std::mutex> lock(m_mutex);
 		if(!m_video_capture){

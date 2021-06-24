@@ -12,6 +12,7 @@
 #include <mutex>
 #include <memory>
 #include <thread>
+
 namespace RemoteServer {
 
 enum VideoEncoderType{
@@ -27,7 +28,7 @@ enum ProfileType{
 struct VideoEncoderParams{
 	int width = 1920;
 	int height = 1080;
-	int bitrate = 2000000;
+	int bitrate = 5000000;
 	int frameRate = 25;
 	int gop_size = 50;
 	ProfileType profile = BASELINE;
@@ -35,7 +36,7 @@ struct VideoEncoderParams{
 class VideoEncoder {
 public:
 	static std::shared_ptr<VideoEncoder> CreateVideoEncoder(VideoEncoderType encoder_type,
-			VideoEncoderParams& params, std::shared_ptr<BufferQueue<unsigned char>>& input_queue, std::shared_ptr<BufferQueue<unsigned char>>& output_queue);
+			VideoEncoderParams& params, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& input_queue, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& output_queue);
 
 	virtual int StartVideoEncoder() = 0;
 
@@ -53,8 +54,8 @@ public:
 
 protected:
 	VideoEncoderParams m_params;
-	std::shared_ptr<BufferQueue<unsigned char>> m_input_queue;
-	std::shared_ptr<BufferQueue<unsigned char>> m_output_queue;
+	std::shared_ptr<BufferQueue::BufferQueue<unsigned char>> m_input_queue;
+	std::shared_ptr<BufferQueue::BufferQueue<unsigned char>> m_output_queue;
 private:
 	static std::shared_ptr<VideoEncoder> m_video_encoder;
 	static std::mutex m_mutex;

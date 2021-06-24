@@ -15,7 +15,7 @@
 #include <condition_variable>
 
 
-namespace RemoteServer{
+namespace BufferQueue{
 
 template <class T>
 class BufferQueue {

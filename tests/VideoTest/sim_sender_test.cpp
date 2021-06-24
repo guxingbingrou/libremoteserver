@@ -26,7 +26,7 @@
 
 using namespace RemoteServer;
 
-static std::shared_ptr< BufferQueue<unsigned char> > buffer_queue_h264;
+static std::shared_ptr< BufferQueue::BufferQueue<unsigned char> > buffer_queue_h264;
 enum
 {
 	el_change_bitrate,
@@ -306,9 +306,9 @@ int main(int argc, const char* argv[])
 
 //	std::ofstream file_stream("/home/zou/x11encoder.h264", std::ios::out | std::ios::binary);
 
-	auto buffer_queue_rgb = std::make_shared< BufferQueue<unsigned char> >(5);
+	auto buffer_queue_rgb = std::make_shared< BufferQueue::BufferQueue<unsigned char> >(5);
 
-	buffer_queue_h264 = std::make_shared< BufferQueue<unsigned char> >(5);
+	buffer_queue_h264 = std::make_shared< BufferQueue::BufferQueue<unsigned char> >(5);
 
 	auto video_capture = VideoCapture::CreateVideoCapture(X11Desktop, buffer_queue_rgb);
 

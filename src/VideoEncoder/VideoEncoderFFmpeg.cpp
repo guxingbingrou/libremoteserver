@@ -10,8 +10,8 @@
 namespace RemoteServer {
 
 
-VideoEncoderFFmpeg::VideoEncoderFFmpeg(VideoEncoderParams& params, std::shared_ptr<BufferQueue<unsigned char>>& input_queue,
-		std::shared_ptr<BufferQueue<unsigned char>>& output_queue) {
+VideoEncoderFFmpeg::VideoEncoderFFmpeg(VideoEncoderParams& params, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& input_queue,
+		std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& output_queue) {
 	// TODO Auto-generated constructor stub
 	m_params = params;
 	m_input_queue = input_queue;

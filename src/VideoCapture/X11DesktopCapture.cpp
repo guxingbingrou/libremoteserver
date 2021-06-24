@@ -9,7 +9,7 @@
 #include <cstring>
 namespace RemoteServer {
 
-X11DesktopCapture::X11DesktopCapture(std::shared_ptr<BufferQueue<unsigned char>>& buffer_queue)
+X11DesktopCapture::X11DesktopCapture(std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& buffer_queue)
 {
 	// TODO Auto-generated constructor stub
 	m_buffer_queue = buffer_queue;

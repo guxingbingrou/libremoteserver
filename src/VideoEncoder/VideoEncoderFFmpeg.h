@@ -20,8 +20,8 @@ namespace RemoteServer {
 
 class VideoEncoderFFmpeg: public VideoEncoder {
 public:
-	VideoEncoderFFmpeg(VideoEncoderParams& params, std::shared_ptr<BufferQueue<unsigned char>>& input_queue,
-			std::shared_ptr<BufferQueue<unsigned char>>& output_queue);
+	VideoEncoderFFmpeg(VideoEncoderParams& params, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& input_queue,
+			std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& output_queue);
 
 
 	int StartVideoEncoder() final;
