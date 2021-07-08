@@ -52,9 +52,9 @@ public:
 	virtual bool DestroyVideoCapture() = 0;
 
 protected:
-	std::shared_ptr<VideoFormat> m_video_format;
 	VideoCapture();
-
+	
+	std::shared_ptr<VideoFormat> m_video_format;
 	bool m_start_capture = false;
 	std::thread m_process_thread;
 	std::shared_ptr<BufferQueue::BufferQueue<unsigned char>> m_buffer_queue;

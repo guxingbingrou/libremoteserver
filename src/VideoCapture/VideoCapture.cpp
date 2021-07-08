@@ -38,15 +38,21 @@ VideoCapture::~VideoCapture() {
 }
 
 bool VideoCapture::StartVideoCapture(){
+	if(m_start_capture)
+		return true;
 	m_start_capture = true;
+	m_buffer_queue->Start();
 	m_process_thread = std::thread(&VideoCapture::UpdateVideoCapture, m_video_capture);
 	return true;
 }
 bool VideoCapture::StopVideoCapture(){
+	if(!m_start_capture)
+		return true;
 	m_start_capture = false;
-	m_buffer_queue->SetWaitePush(false);
+	m_buffer_queue->Stop();
 	if(m_process_thread.joinable())
 		m_process_thread.join();
+	SIMLOG(SimLogger::Info, "StopVideoCapture OK");
 	return true;
 }
 

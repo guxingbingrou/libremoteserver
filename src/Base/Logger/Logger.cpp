@@ -64,6 +64,7 @@ std::ostream& Logger::GetOstream(){
 		defalut:
 			return std::cout;
 	}
+	return std::cout;
 }
 Logger::Logger() {
 	// TODO Auto-generated constructor stub

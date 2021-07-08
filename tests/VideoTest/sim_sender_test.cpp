@@ -196,7 +196,7 @@ static void try_send_video(video_sender_t* sender)
 
 
 		sim_send_video(0, ftype, sender->frame, frame_size);
-		printf("frame_size=%d\n", frame_size);
+		printf("frame_size=%ld\n", frame_size);
 		static FILE* file = fopen("test_sim.h264", "wb");
 		fwrite(sender->frame, 1, frame_size, file);
 		/*只发送一帧试一试*/

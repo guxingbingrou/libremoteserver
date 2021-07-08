@@ -73,11 +73,14 @@ int VideoEncoderFFmpeg::InitVideoEncoder(){
 int VideoEncoderFFmpeg::StartVideoEncoder(){
     if(m_start_encoder)
         return 0;
+
     if(avcodec_open2(m_code_context, m_codec, NULL) < 0){
     	SIMLOG(SimLogger::Error, "can not open codec");
         return -1;
     }
     m_start_encoder = true;
+    m_input_queue->Start();
+	m_output_queue->Start();
     m_process_thread = std::thread(&VideoEncoderFFmpeg::UpdateVideoEncoder, this);
     return 0;
 }
@@ -193,11 +196,11 @@ int VideoEncoderFFmpeg::StopVideoEncoder(){
 	m_start_encoder = false;
 	if(m_process_thread.joinable())
 		m_process_thread.join();
-	m_input_queue->SetWaitePop(false);
-	m_output_queue->SetWaitePush(false);
+	m_input_queue->Stop();
+	m_output_queue->Stop();
 	if(m_code_context && avcodec_is_open(m_code_context))
 		avcodec_close(m_code_context);
-
+    SIMLOG(SimLogger::Info, "StopVideoEncoder OK");
 	m_frame_count = 0;
 
 	return 0;
