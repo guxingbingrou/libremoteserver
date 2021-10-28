@@ -38,14 +38,14 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 class OutputSocket: public Socket {
 public:
-  OutputSocket(UsageEnvironment& env);
+  OutputSocket(UsageEnvironment& env, int family);
   virtual ~OutputSocket();
 
   virtual Boolean write(struct sockaddr_storage const& addressAndPort, u_int8_t ttl,
 			unsigned char* buffer, unsigned bufferSize);
 
 protected:
-  OutputSocket(UsageEnvironment& env, Port port);
+  OutputSocket(UsageEnvironment& env, Port port, int family);
 
   portNumBits sourcePortNum() const {return fSourcePort.num();}
 

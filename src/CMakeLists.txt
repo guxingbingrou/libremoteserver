@@ -30,3 +30,19 @@ target_link_libraries(VideoEncoder
     ${SWSCALE_LIBRARIES}
     )
 set_target_properties(VideoEncoder PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+
+include_directories(${PROJECT_SOURCE_DIR}/include/live555/liveMedia
+    ${PROJECT_SOURCE_DIR}/include/live555/groupsock
+    ${PROJECT_SOURCE_DIR}/include/live555/BasicUsageEnvironment
+    ${PROJECT_SOURCE_DIR}/include/live555/UsageEnvironment)
+add_library(RtspSever SHARED ${PROJECT_SOURCE_DIR}/src/Rtsp/H264LiveVideoSource.cpp 
+	${PROJECT_SOURCE_DIR}/src/Rtsp/H264VideoLiveServerMediaSubsession.cpp 
+	${PROJECT_SOURCE_DIR}/src/Base/Logger/Logger.cpp
+	${PROJECT_SOURCE_DIR}/src/Base/BufferQueue/BufferQueue.hpp)
+target_link_libraries(RtspSever
+    ${PROJECT_SOURCE_DIR}/lib/Live555/libliveMedia.so.94.0.3
+    ${PROJECT_SOURCE_DIR}/lib/Live555/libgroupsock.so.30.0.4
+    ${PROJECT_SOURCE_DIR}/lib/Live555/libBasicUsageEnvironment.so.1.0.1
+    ${PROJECT_SOURCE_DIR}/lib/Live555/libUsageEnvironment.so.3.1.0
+    )
+set_target_properties(RtspSever PROPERTIES CLEAN_DIRECT_OUTPUT 1)

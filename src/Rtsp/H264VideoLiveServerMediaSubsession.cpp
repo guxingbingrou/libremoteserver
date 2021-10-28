@@ -9,11 +9,11 @@
 #include "H264VideoStreamFramer.hh"
 #include "H264VideoRTPSink.hh"
 H264VideoLiveServerMediaSubsession*
-H264VideoLiveServerMediaSubsession::createNew(UsageEnvironment& env, std::shared_ptr<RemoteServer::BufferQueue<unsigned char>> & buffer_queue){
+H264VideoLiveServerMediaSubsession::createNew(UsageEnvironment& env, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>> & buffer_queue){
 	return new H264VideoLiveServerMediaSubsession(env, buffer_queue);
 }
 
-H264VideoLiveServerMediaSubsession::H264VideoLiveServerMediaSubsession(UsageEnvironment& env, std::shared_ptr<RemoteServer::BufferQueue<unsigned char>> & buffer_queue)
+H264VideoLiveServerMediaSubsession::H264VideoLiveServerMediaSubsession(UsageEnvironment& env, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>> & buffer_queue)
 : OnDemandServerMediaSubsession(env, False)  {
 	// TODO Auto-generated constructor stub
 	m_buffer_queue = buffer_queue;

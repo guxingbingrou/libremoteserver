@@ -14,12 +14,12 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 **********/
 // Version information for the "groupsock" library
-// Copyright (c) 1996-2020 Live Networks, Inc.  All rights reserved.
+// Copyright (c) 1996-2021 Live Networks, Inc.  All rights reserved.
 
 #ifndef _GROUPSOCK_VERSION_HH
 #define _GROUPSOCK_VERSION_HH
 
-#define GROUPSOCK_LIBRARY_VERSION_STRING	"2020.12.23"
-#define GROUPSOCK_LIBRARY_VERSION_INT		1608681600
+#define GROUPSOCK_LIBRARY_VERSION_STRING	"2021.05.22"
+#define GROUPSOCK_LIBRARY_VERSION_INT		1621641600
 
 #endif

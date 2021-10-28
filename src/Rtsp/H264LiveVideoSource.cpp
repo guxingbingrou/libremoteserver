@@ -7,7 +7,7 @@
 
 #include "H264LiveVideoSource.hh"
 
-H264LiveVideoSource::H264LiveVideoSource(UsageEnvironment& env, std::shared_ptr<RemoteServer::BufferQueue<unsigned char>>&  buffer_queue)
+H264LiveVideoSource::H264LiveVideoSource(UsageEnvironment& env, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>&  buffer_queue)
 	:FramedSource(env),
 	 m_buffer_queue(buffer_queue) {
 	// TODO Auto-generated constructor stub

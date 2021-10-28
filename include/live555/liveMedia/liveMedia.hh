@@ -132,7 +132,6 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #include "MPEG2TransportStreamDemux.hh"
 #include "ProxyServerMediaSession.hh"
 #include "HLSSegmenter.hh"
-#include "H264LiveVideoSource.hh"
-#include "H264VideoLiveServerMediaSubsession.hh"
+#include "MPEG2TransportStreamAccumulator.hh"
 
 #endif

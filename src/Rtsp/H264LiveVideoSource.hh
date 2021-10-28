@@ -9,18 +9,15 @@
 #define LIVEMEDIA_H264LIVEVIDEOSOURCE_HH_
 
 #include "FramedSource.hh"
-//#include "liveMedia.hh"
-//#include "BasicUsageEnvironment.hh"
-//#include "GroupsockHelper.hh"
-#include "BufferQueue.hpp"
+#include "../Base/BufferQueue/BufferQueue.hpp"
 #include <vector>
 class H264LiveVideoSource: public FramedSource {
 public:
-	H264LiveVideoSource(UsageEnvironment& env, std::shared_ptr<RemoteServer::BufferQueue<unsigned char>>&  buffer_queue);
+	H264LiveVideoSource(UsageEnvironment& env, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>&  buffer_queue);
 	virtual ~H264LiveVideoSource();
 
 private:
-	std::shared_ptr<RemoteServer::BufferQueue<unsigned char>>  m_buffer_queue;
+	std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>  m_buffer_queue;
 
 	  // redefined virtual functions:
 	virtual void doGetNextFrame();

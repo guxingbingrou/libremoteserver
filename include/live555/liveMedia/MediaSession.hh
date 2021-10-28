@@ -71,6 +71,7 @@ public:
   Boolean hasSubsessions() const { return fSubsessionsHead != NULL; }
 
   char* connectionEndpointName() const { return fConnectionEndpointName; }
+  int connectionEndpointNameAddressFamily() const { return fConnectionEndpointNameAddressFamily; }
   char const* CNAME() const { return fCNAME; }
   struct sockaddr_storage const& sourceFilterAddr() const { return fSourceFilterAddr; }
   float& scale() { return fScale; }
@@ -134,6 +135,7 @@ protected:
 
   // Fields set from a SDP description:
   char* fConnectionEndpointName;
+  int fConnectionEndpointNameAddressFamily;
   double fMaxPlayStartTime;
   double fMaxPlayEndTime;
   char* fAbsStartTime;
@@ -224,6 +226,11 @@ public:
   char*& connectionEndpointName() { return fConnectionEndpointName; }
   char const* connectionEndpointName() const {
     return fConnectionEndpointName;
+  }
+  int connectionEndpointNameAddressFamily() const {
+    return fConnectionEndpointNameAddressFamily == AF_UNSPEC
+      ? parentSession().connectionEndpointNameAddressFamily()
+      : fConnectionEndpointNameAddressFamily;
   }
 
   // 'Bandwidth' parameter, set in the "b=" SDP line:
@@ -316,6 +323,7 @@ protected:
 
   // Fields set from a SDP description:
   char* fConnectionEndpointName; // may also be set by RTSP SETUP response
+  int fConnectionEndpointNameAddressFamily;
   unsigned short fClientPortNum; // in host byte order
       // This field is also set by initiate()
   unsigned char fRTPPayloadFormat;

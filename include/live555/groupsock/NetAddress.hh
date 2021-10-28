@@ -59,7 +59,7 @@ private:
   u_int8_t* fData;
 };
 
-struct sockaddr_storage const& nullAddress();
+struct sockaddr_storage const& nullAddress(int addressFamily = AF_INET);
 Boolean addressIsNull(sockaddr_storage const& address);
 
 SOCKLEN_T addressSize(sockaddr_storage const& address);
@@ -71,7 +71,7 @@ Boolean operator==(struct sockaddr_storage const& left, struct sockaddr_storage 
 
 class NetAddressList {
 public:
-  NetAddressList(char const* hostname);
+  NetAddressList(char const* hostname, int addressFamily = AF_UNSPEC);
   NetAddressList(NetAddressList const& orig);
   NetAddressList& operator=(NetAddressList const& rightSide);
   virtual ~NetAddressList();
@@ -181,7 +181,7 @@ public:
   // IPv4 input:
   AddressString(struct sockaddr_in const& addr);
   AddressString(struct in_addr const& addr);
-  AddressString(ipv4AddressBits const& addr); // "addr" is assumed to be in host byte order
+  AddressString(ipv4AddressBits const& addr); // "addr" is assumed to be in network byte order
 
   // IPv6 input:
   AddressString(struct sockaddr_in6 const& addr);

@@ -25,9 +25,9 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #include "NetAddress.hh"
 #endif
 
-int setupDatagramSocket(UsageEnvironment& env, Port port);
-int setupStreamSocket(UsageEnvironment& env,
-		      Port port, Boolean makeNonBlocking = True, Boolean setKeepAlive = False);
+int setupDatagramSocket(UsageEnvironment& env, Port port, int domain);
+int setupStreamSocket(UsageEnvironment& env, Port port, int domain,
+		      Boolean makeNonBlocking = True, Boolean setKeepAlive = False);
 
 int readSocket(UsageEnvironment& env,
 	       int socket, unsigned char* buffer, unsigned bufferSize,
@@ -74,11 +74,17 @@ Boolean socketLeaveGroupSSM(UsageEnvironment&, int socket,
 			    struct sockaddr_storage const& groupAddress,
 			    struct sockaddr_storage const& sourceFilterAddr);
 
-Boolean getSourcePort(UsageEnvironment& env, int socket, Port& port);
+Boolean getSourcePort(UsageEnvironment& env, int socket, int domain, Port& port);
 
-ipv4AddressBits ourIPAddress(UsageEnvironment& env); // in network order
+ipv4AddressBits ourIPv4Address(UsageEnvironment& env); // in network order
+ipv6AddressBits const& ourIPv6Address(UsageEnvironment& env);
 
-// IP addresses of our sending and receiving interfaces.  (By default, these
+Boolean weHaveAnIPv4Address(UsageEnvironment& env);
+Boolean weHaveAnIPv6Address(UsageEnvironment& env);
+Boolean weHaveAnIPAddress(UsageEnvironment& env);
+  // returns True if we have either an IPv4 or an IPv6 address
+
+// IPv4 addresses of our sending and receiving interfaces.  (By default, these
 // are INADDR_ANY (i.e., 0), specifying the default interface.)
 extern ipv4AddressBits SendingInterfaceAddr;
 extern ipv4AddressBits ReceivingInterfaceAddr;
@@ -92,8 +98,10 @@ char const* timestampString();
 
 #ifdef HAVE_SOCKADDR_LEN
 #define SET_SOCKADDR_SIN_LEN(var) var.sin_len = sizeof var
+#define SET_SOCKADDR_SIN6_LEN(var) var.sin6_len = sizeof var
 #else
 #define SET_SOCKADDR_SIN_LEN(var)
+#define SET_SOCKADDR_SIN6_LEN(var)
 #endif
 
 #define MAKE_SOCKADDR_IN(var,adr,prt) /*adr,prt must be in network order*/\
@@ -102,6 +110,12 @@ char const* timestampString();
     var.sin_addr.s_addr = (adr);\
     var.sin_port = (prt);\
     SET_SOCKADDR_SIN_LEN(var);
+#define MAKE_SOCKADDR_IN6(var,prt) /*adr,prt must be in network order*/\
+    struct sockaddr_in6 var;\
+    memset(&var, 0, sizeof var);\
+    var.sin6_family = AF_INET6;\
+    var.sin6_port = (prt);\
+    SET_SOCKADDR_SIN6_LEN(var);
 
 
 // By default, we create sockets with the SO_REUSE_* flag set.

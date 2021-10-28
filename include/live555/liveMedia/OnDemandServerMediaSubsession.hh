@@ -43,7 +43,7 @@ protected: // we're a virtual base class
   virtual ~OnDemandServerMediaSubsession();
 
 protected: // redefined virtual functions
-  virtual char const* sdpLines();
+  virtual char const* sdpLines(int addressFamily);
   virtual void getStreamParameters(unsigned clientSessionId,
 				   struct sockaddr_storage const& clientAddress,
                                    Port const& clientRTPPort,

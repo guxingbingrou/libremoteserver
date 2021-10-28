@@ -26,7 +26,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #include "../../src/Base/BufferQueue/BufferQueue.hpp"
 #include "liveMedia.hh"
 #include "BasicUsageEnvironment.hh"
-
+#include "Rtsp/H264VideoLiveServerMediaSubsession.hh"
 using namespace RemoteServer;
 
 UsageEnvironment* env;
@@ -149,7 +149,7 @@ int main(int argc, char** argv) {
 
 static void announceStream(RTSPServer* rtspServer, ServerMediaSession* sms,
 			   char const* streamName, char const* inputFileName) {
-  char* url = rtspServer->rtspURL(sms);
+  char* url = rtspServer->ipv4rtspURL(sms);
   UsageEnvironment& env = rtspServer->envir();
   env << "\n\"" << streamName << "\" stream, from the file \""
       << inputFileName << "\"\n";

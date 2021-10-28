@@ -36,12 +36,24 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #define RESPONSE_BUFFER_SIZE 20000
 #endif
 
+// Typedef for a handler function that gets called when "lookupServerMediaSession()"
+// (defined below) completes:
+typedef void lookupServerMediaSessionCompletionFunc(void* clientData,
+						    ServerMediaSession* sessionLookedUp);
+
 class GenericMediaServer: public Medium {
 public:
   void addServerMediaSession(ServerMediaSession* serverMediaSession);
 
-  virtual ServerMediaSession*
-  lookupServerMediaSession(char const* streamName, Boolean isFirstLookupInSession = True);
+  virtual void lookupServerMediaSession(char const* streamName,
+					lookupServerMediaSessionCompletionFunc* completionFunc,
+					void* completionClientData,
+					Boolean isFirstLookupInSession = True);
+      // Note: This is a virtual function, so can be reimplemented by subclasses.
+  void lookupServerMediaSession(char const* streamName,
+				void (GenericMediaServer::*memberFunc)(ServerMediaSession*));
+      // Special case of "lookupServerMediaSession()" where the 'completion function' is a
+      // member function of "GenericMediaServer" (and the 'completion client data' is "this".)
 
   void removeServerMediaSession(ServerMediaSession* serverMediaSession);
       // Removes the "ServerMediaSession" object from our lookup table, so it will no longer be accessible by new clients.
@@ -68,7 +80,7 @@ public:
   unsigned numClientSessions() const { return fClientSessions->numEntries(); }
 
 protected:
-  GenericMediaServer(UsageEnvironment& env, int ourSocket, Port ourPort,
+  GenericMediaServer(UsageEnvironment& env, int ourSocketIPv4, int ourSocketIPv6, Port ourPort,
 		     unsigned reclamationSeconds);
       // If "reclamationSeconds" > 0, then the "ClientSession" state for each client will get
       // reclaimed if no activity from the client is detected in at least "reclamationSeconds".
@@ -76,10 +88,12 @@ protected:
   virtual ~GenericMediaServer();
   void cleanup(); // MUST be called in the destructor of any subclass of us
 
-  static int setUpOurSocket(UsageEnvironment& env, Port& ourPort);
+  static int setUpOurSocket(UsageEnvironment& env, Port& ourPort, int domain);
 
-  static void incomingConnectionHandler(void*, int /*mask*/);
-  void incomingConnectionHandler();
+  static void incomingConnectionHandlerIPv4(void*, int /*mask*/);
+  static void incomingConnectionHandlerIPv6(void*, int /*mask*/);
+  void incomingConnectionHandlerIPv4();
+  void incomingConnectionHandlerIPv6();
   void incomingConnectionHandlerOnSocket(int serverSocket);
 
 public: // should be protected, but some old compilers complain otherwise
@@ -151,11 +165,14 @@ protected:
     HashTable::Iterator* fOurIterator;
   };
 
+  // The basic, synchronous "ServerMediaSession" lookup operation; only for subclasses:
+  ServerMediaSession* getServerMediaSession(char const* streamName);
+  
 protected:
   friend class ClientConnection;
   friend class ClientSession;	
   friend class ServerMediaSessionIterator;
-  int fServerSocket;
+  int fServerSocketIPv4, fServerSocketIPv6;
   Port fServerPort;
   unsigned fReclamationSeconds;
 

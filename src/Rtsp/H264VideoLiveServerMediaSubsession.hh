@@ -12,13 +12,13 @@
 //#include "GroupsockHelper.hh"
 #include "OnDemandServerMediaSubsession.hh"
 #include "ServerMediaSession.hh"
-#include "BufferQueue.hpp"
+#include "../Base/BufferQueue/BufferQueue.hpp"
 #include "H264LiveVideoSource.hh"
 #include <memory>
 class H264VideoLiveServerMediaSubsession: public OnDemandServerMediaSubsession {
 public:
 	static H264VideoLiveServerMediaSubsession*
-		createNew(UsageEnvironment& env, std::shared_ptr<RemoteServer::BufferQueue<unsigned char>> & buffer_queue);
+		createNew(UsageEnvironment& env, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>> & buffer_queue);
 
 
 	  // Used to implement "getAuxSDPLine()":
@@ -29,7 +29,7 @@ public:
 	  void setDoneFlag() { m_done = ~0; }
 
 protected:
-	  H264VideoLiveServerMediaSubsession(UsageEnvironment& env, std::shared_ptr<RemoteServer::BufferQueue<unsigned char>> & buffer_queue);
+	  H264VideoLiveServerMediaSubsession(UsageEnvironment& env, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>> & buffer_queue);
 	      // called only by createNew();
 	  virtual ~H264VideoLiveServerMediaSubsession();
 
@@ -47,7 +47,7 @@ protected:
 
 
 private:
-	std::shared_ptr<RemoteServer::BufferQueue<unsigned char>>  m_buffer_queue;
+	std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>  m_buffer_queue;
 	char* m_sdp_line = nullptr;
 	char m_done; // used when setting up "fAuxSDPLine"
 	RTPSink* m_dummy_rtp_sink = nullptr; // ditto
