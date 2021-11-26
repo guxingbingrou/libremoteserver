@@ -7,6 +7,10 @@
 
 #include "VideoCapture/VideoCapture.h"
 #include "VideoEncoder/VideoEncoder.h"
+#include "VideoCapture/VideoCaptureFactory.h"
+#include "VideoCapture/VideoCaptureX11Factory.h"
+#include "VideoEncoder/VideoEncoderFactory.h"
+#include "VideoEncoder/VideoEncoderFFmpegFactory.h"
 #include "Logger/Logger.h"
 #include <fstream>
 #include <memory>
@@ -24,14 +28,16 @@ int main(){
 
 	auto buffer_queue_h264 = std::make_shared< BufferQueue::BufferQueue<unsigned char> >(5);
 
-	auto video_capture = VideoCapture::CreateVideoCapture(X11Desktop, buffer_queue_rgb);
+	auto x11_factory = std::make_unique<VideoCaptureX11Factory>();
+	auto video_capture = x11_factory->CreateVideoCapture(buffer_queue_rgb);
 
 	VideoEncoderParams param;
 	auto format = video_capture->GetVideoFormat();
 	param.height = format->height;
 	param.width = format->width;
 
-	auto video_encoder = VideoEncoder::CreateVideoEncoder(TYPE_FFMPEG, param, buffer_queue_rgb, buffer_queue_h264);
+	auto ffmpeg_factory = std::make_unique<VideoEncoderFFmpegFactory>();
+	auto video_encoder = ffmpeg_factory->CreateVideoEncoder(param, buffer_queue_rgb, buffer_queue_h264);
 
 	video_capture->StartVideoCapture();
 	video_encoder->StartVideoEncoder();

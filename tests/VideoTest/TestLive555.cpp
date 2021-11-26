@@ -19,6 +19,10 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 // main program
 #include "VideoCapture/VideoCapture.h"
 #include "VideoEncoder/VideoEncoder.h"
+#include "VideoCapture/VideoCaptureFactory.h"
+#include "VideoCapture/VideoCaptureX11Factory.h"
+#include "VideoEncoder/VideoEncoderFactory.h"
+#include "VideoEncoder/VideoEncoderFFmpegFactory.h"
 #include "Logger/Logger.h"
 #include <fstream>
 #include <memory>
@@ -26,7 +30,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #include "../../src/Base/BufferQueue/BufferQueue.hpp"
 #include "liveMedia.hh"
 #include "BasicUsageEnvironment.hh"
-#include "Rtsp/H264VideoLiveServerMediaSubsession.hh"
+#include "Rtsp/Live555/H264VideoLiveServerMediaSubsession.hh"
 using namespace RemoteServer;
 
 UsageEnvironment* env;
@@ -68,14 +72,16 @@ int main(int argc, char** argv) {
 
 	auto buffer_queue_h264 = std::make_shared< BufferQueue::BufferQueue<unsigned char> >(5);
 
-	auto video_capture = VideoCapture::CreateVideoCapture(X11Desktop, buffer_queue_rgb);
+	auto x11_factory = std::make_unique<VideoCaptureX11Factory>();
+	auto video_capture = x11_factory->CreateVideoCapture(buffer_queue_rgb);
 
 	VideoEncoderParams param;
 	auto format = video_capture->GetVideoFormat();
 	param.height = format->height;
 	param.width = format->width;
 
-	auto video_encoder = VideoEncoder::CreateVideoEncoder(TYPE_FFMPEG, param, buffer_queue_rgb, buffer_queue_h264);
+	auto ffmpeg_factory = std::make_unique<VideoEncoderFFmpegFactory>();
+	auto video_encoder = ffmpeg_factory->CreateVideoEncoder(param, buffer_queue_rgb, buffer_queue_h264);
 
 	video_capture->StartVideoCapture();
 	video_encoder->StartVideoEncoder();

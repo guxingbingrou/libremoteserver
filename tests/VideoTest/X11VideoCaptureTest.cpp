@@ -1,4 +1,6 @@
 #include "VideoCapture/VideoCapture.h"
+#include "VideoCapture/VideoCaptureFactory.h"
+#include "VideoCapture/VideoCaptureX11Factory.h"
 #include "Logger/Logger.h"
 #include <fstream>
 #include <memory>
@@ -14,7 +16,8 @@ int main(){
 
 	auto buffer_queue = std::make_shared< BufferQueue::BufferQueue<unsigned char> >(5);
 
-	auto video_capture = VideoCapture::CreateVideoCapture(X11Desktop, buffer_queue);
+	auto x11_factory = std::make_unique<VideoCaptureX11Factory>();
+	auto video_capture = x11_factory->CreateVideoCapture(buffer_queue);
 
 	auto format = video_capture->GetVideoFormat();
 	int screen_size = format->width * format->height * format->bits_per_pixel / 8;

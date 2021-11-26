@@ -15,10 +15,6 @@
 
 namespace RemoteServer {
 
-enum VideoEncoderType{
-	TYPE_FFMPEG,
-	TYPE_X264
-};
 
 enum ProfileType{
 	BASELINE,
@@ -35,9 +31,6 @@ struct VideoEncoderParams{
 };
 class VideoEncoder {
 public:
-	static std::shared_ptr<VideoEncoder> CreateVideoEncoder(VideoEncoderType encoder_type,
-			VideoEncoderParams& params, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& input_queue, std::shared_ptr<BufferQueue::BufferQueue<unsigned char>>& output_queue);
-
 	virtual int StartVideoEncoder() = 0;
 
 	virtual int SetVideoParams(VideoEncoderParams& videoParams) = 0;
@@ -48,17 +41,15 @@ public:
 
 	virtual int GenerateKeyFrame() = 0;
 
-	VideoEncoder();
+	VideoEncoder()=default;
 
-	virtual ~VideoEncoder();
+	virtual ~VideoEncoder()=default;
 
 protected:
 	VideoEncoderParams m_params;
 	std::shared_ptr<BufferQueue::BufferQueue<unsigned char>> m_input_queue;
 	std::shared_ptr<BufferQueue::BufferQueue<unsigned char>> m_output_queue;
-private:
-	static std::shared_ptr<VideoEncoder> m_video_encoder;
-	static std::mutex m_mutex;
+
 };
 
 }

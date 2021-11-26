@@ -19,7 +19,7 @@ set (AVUTIL_LIBRARIES ${FFMPEG_LIBS_DIR}/libavutil.so)
 set (SWSCALE_LIBRARIES ${FFMPEG_LIBS_DIR}/libswscale.so)
 
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
-add_library(VideoEncoder SHARED ${PROJECT_SOURCE_DIR}/src/VideoEncoder/VideoEncoder.cpp 
+add_library(VideoEncoder SHARED 
 	${PROJECT_SOURCE_DIR}/src/VideoEncoder/VideoEncoderFFmpeg.cpp 
 	${PROJECT_SOURCE_DIR}/src/Base/Logger/Logger.cpp
 	${PROJECT_SOURCE_DIR}/src/Base/BufferQueue/BufferQueue.hpp)
@@ -35,8 +35,8 @@ include_directories(${PROJECT_SOURCE_DIR}/include/live555/liveMedia
     ${PROJECT_SOURCE_DIR}/include/live555/groupsock
     ${PROJECT_SOURCE_DIR}/include/live555/BasicUsageEnvironment
     ${PROJECT_SOURCE_DIR}/include/live555/UsageEnvironment)
-add_library(RtspSever SHARED ${PROJECT_SOURCE_DIR}/src/Rtsp/H264LiveVideoSource.cpp 
-	${PROJECT_SOURCE_DIR}/src/Rtsp/H264VideoLiveServerMediaSubsession.cpp 
+add_library(RtspSever SHARED ${PROJECT_SOURCE_DIR}/src/Rtsp/Live555/H264LiveVideoSource.cpp 
+	${PROJECT_SOURCE_DIR}/src/Rtsp//Live555/H264VideoLiveServerMediaSubsession.cpp 
 	${PROJECT_SOURCE_DIR}/src/Base/Logger/Logger.cpp
 	${PROJECT_SOURCE_DIR}/src/Base/BufferQueue/BufferQueue.hpp)
 target_link_libraries(RtspSever
