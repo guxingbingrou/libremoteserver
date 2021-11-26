@@ -1,5 +1,5 @@
-#ifndef __REMOTE_SERVER_VIDEO_ENCODER_FACTORY__
-#define __REMOTE_SERVER_VIDEO_ENCODER_FACTORY__
+#ifndef __REMOTE_SERVER_VIDEO_ENCODER_FACTORY_H_
+#define __REMOTE_SERVER_VIDEO_ENCODER_FACTORY_H_
 #include "VideoEncoder.h"
 namespace RemoteServer {
 class VideoEncoderFactory

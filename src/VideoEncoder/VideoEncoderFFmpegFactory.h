@@ -1,5 +1,5 @@
-#ifndef __REMOTE_SERVER_VIDEO_ENCODER_FFMPEG_FACTORY__
-#define __REMOTE_SERVER_VIDEO_ENCODER_FFMPEG_FACTORY__
+#ifndef __REMOTE_SERVER_VIDEO_ENCODER_FFMPEG_FACTORY_H_
+#define __REMOTE_SERVER_VIDEO_ENCODER_FFMPEG_FACTORY_H_
 #include "VideoEncoderFactory.h"
 #include "VideoEncoderFFmpeg.h"
 namespace RemoteServer{

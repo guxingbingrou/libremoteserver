@@ -1,5 +1,5 @@
-#ifndef __REMOTE_SERVER_VIDEO_CAPTURE_X11_FACTORY__
-#define __REMOTE_SERVER_VIDEO_CAPTURE_X11_FACTORY__
+#ifndef __REMOTE_SERVER_VIDEO_CAPTURE_X11_FACTORY_H_
+#define __REMOTE_SERVER_VIDEO_CAPTURE_X11_FACTORY_H_
 #include "VideoCaptureFactory.h"
 #include "X11DesktopCapture.h"
 namespace RemoteServer{

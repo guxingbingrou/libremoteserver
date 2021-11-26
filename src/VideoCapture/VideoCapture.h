@@ -24,10 +24,7 @@ enum PixelType{
 	YUV422,
 	YUV444
 };
-enum VideoCaptureType{
-	X11Desktop,
-	LinuxCamera,
-};
+
 struct VideoFormat{
 	int width;
 	int height;
